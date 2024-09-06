@@ -10,21 +10,33 @@ import logo from "../../../public/assets/logo.png";
 import logo2 from "../../../public/assets/logo2.png";
 import avatar from "../../../public/assets/avatar.png";
 
-const menus = [
+// Type for menu items
+interface MenuItem {
+  title: string;
+  icon: React.ComponentType; // Icon component type
+}
+
+const menus: MenuItem[] = [
   { title: "Dashboard", icon: MdOutlineSpaceDashboard },
   { title: "Task", icon: MdTask },
   { title: "Projects", icon: GrProjects },
   { title: "Schedule", icon: GrSchedules }
 ];
 
-const DashboardRow = ({ title, icon: Icon }) => (
+// Props for DashboardRow component
+interface DashboardRowProps {
+  title: string;
+  icon: React.ComponentType; // Icon component type
+}
+
+const DashboardRow: React.FC<DashboardRowProps> = ({ title, icon: Icon }) => (
   <li className="flex items-center gap-4 mt-8">
-    <Icon className="text-2xl" />
+    <Icon />
     <span>{title}</span>
   </li>
 );
 
-const TableRow = () => (
+const TableRow: React.FC = () => (
   <tr className="p-6 border-t">
     <td className="py-6 flex items-center gap-3">
       <input type="checkbox" className="w-6 h-6 rounded-lg" />
@@ -55,7 +67,7 @@ const TableRow = () => (
   </tr>
 );
 
-const DashBoard = () => {
+const DashBoard: React.FC = () => {
   const [open, setOpen] = React.useState(true);
 
   return (
@@ -73,10 +85,12 @@ const DashBoard = () => {
             height={open ? 32 : 50}
             className="size-full h-[32px] object-contain"
           />
-          <IoIosArrowDropleftCircle
+          <span
             className={`text-4xl cursor-pointer ${!open && "rotate-180"}`}
             onClick={() => setOpen(!open)}
-          />
+          >
+            <IoIosArrowDropleftCircle />
+          </span>
         </div>
         <ul>
           {menus.map((menu, index) => (
